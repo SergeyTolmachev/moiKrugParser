@@ -17,7 +17,8 @@ let vacanciesSchema = mongoose.Schema({
     title: String,
     salaryDown: Number,
     salaryUp: Number,
-    currency: String
+    currency: String,
+    date: Date
 });
 
 let vacanciesModel = mongoose.model('vacanciesModel', vacanciesSchema);
@@ -74,6 +75,7 @@ https.get('https://moikrug.ru/vacancies', (resp) => {
                 salaryDown: salaryArr ? (salaryArr[0].indexOf('От') !== -1 ? salaryArr[1] : undefined) : undefined,
                 salaryUp: salaryArr ? (salaryArr[0].indexOf('До') !== -1 ? salaryArr[1] : salaryArr[2].indexOf('до') !==-1 ? salaryArr[3] : undefined) : undefined,
                 currency: salaryArr ? (salaryArr[salaryArr.length - 1]) : undefined,
+                date: new Date(),
             };
         });
         //console.log(jobsArr);
