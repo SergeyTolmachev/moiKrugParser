@@ -1,7 +1,27 @@
 {
-  "name": "$package_name$",
-  "version": "0.0.1",
+  "name": "moikrug",
+  "version": "1.0.0",
+  "description": "",
+  "main": "parser.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SergeyTolmachev/moiKrug.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SergeyTolmachev/moiKrug/issues"
+  },
+  "homepage": "https://github.com/SergeyTolmachev/moiKrug#readme",
   "dependencies": {
-    $END$
+    "body-parser": "^1.18.3",
+    "htmlparser": "^1.7.7",
+    "mongodb": "^3.0.10",
+    "mongoose": "^5.1.6",
+    "request": "^2.87.0",
+    "soupselect": "^0.2.0"
   }
 }
