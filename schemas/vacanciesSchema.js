@@ -17,6 +17,8 @@ vacanciesSchema = mongoose.Schema({
     companyHref: String,
     companyName: String,
     companyAbout: String,
+    remote: Boolean,
+    fullDay: Boolean,
     description: mongoose.Schema.Types.Mixed
 });
 

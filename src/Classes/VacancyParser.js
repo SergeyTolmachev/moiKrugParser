@@ -99,7 +99,7 @@ class VacancyParser {
         if (typeof (this.data.title) != 'string') {
             this.data.falseOfParsing = true;
         }
-        if (typeof ( + this.data.lastId) != 'number') {
+        if (typeof (+this.data.lastId) != 'number') {
             this.data.falseOfParsing = true;
         }
         if (this.data.description == '' || this.data.description == null || this.data.description == undefined) {
@@ -146,9 +146,6 @@ class VacancyParser {
     }
 
 
-
-
-
     parseSalary() {
         const footerDom = select(handler.dom, '.footer_meta');
         const salaryDom = select(footerDom, '.salary');
@@ -166,7 +163,7 @@ class VacancyParser {
         this.data.salary = salary;
     }
 
-    parseLocation(){
+    parseLocation() {
         const footerDom = select(handler.dom, '.footer_meta');
         const locationDom = select(footerDom, '.location');
 
@@ -179,7 +176,31 @@ class VacancyParser {
     }
 
 
-    parseCompany(){
+    parseRemote() {
+        const footerDom = select(handler.dom, '.footer_meta');
+        const remoteDom = select(footerDom, '.ready_to_remote');
+
+        if (remoteDom[0].children[0]) {
+            if (remoteDom[0].children[0].data.indexOf('Можно удаленно') != -1) {
+                this.data.remote = true;
+            } else {
+                this.data.remote = false;
+            }
+
+
+            if (remoteDom[0].children[0].data.indexOf('Полный рабочий день') != -1) {
+                this.data.fullDay = true;
+            } else {
+
+       this.data.fullDay = false;
+            }
+
+        }
+
+    }
+
+
+    parseCompany() {
         let logoDom = select(handler.dom, '.logo');
 
         if (logoDom && logoDom[0] && logoDom[0].children[0]) {
@@ -228,14 +249,14 @@ class VacancyParser {
             this.parseLocation();
             this.parseDescripton();
             this.checkRightParsing();
-        } catch(e) {
+            this.parseRemote();
+        } catch (e) {
             this.data.falseOfParsing = true;
         }
     }
 
 
 }
-
 
 
 module.exports = VacancyParser;
