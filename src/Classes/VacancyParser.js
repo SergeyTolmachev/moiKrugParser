@@ -72,7 +72,11 @@ class VacancyParser {
     }
 
     static getSalary(salary) {
-        let salaryThings = {};
+        let salaryThings = {
+            salaryDown: null,
+            salaryUp: null,
+            currency: null
+        };
         const salaryItems = salary.split(' ');
         if (salaryItems[0] == 'От') {
             salaryThings.salaryDown = salaryItems[1] + '' + salaryItems[2]
@@ -83,6 +87,7 @@ class VacancyParser {
         if (salaryItems[3] == 'до') {
             salaryThings.salaryUp = salaryItems[4] + '' + salaryItems[5]
         }
+
         salaryThings.currency = salaryItems[salaryItems.length - 1];
         return salaryThings;
     }
@@ -151,16 +156,20 @@ class VacancyParser {
         const salaryDom = select(footerDom, '.salary');
 
         let salary = {
-            salaryDown: undefined,
-            salaryUp: undefined,
-            currency: undefined
+            salaryDown: null,
+            salaryUp: null,
+            currency: null
         };
+
+        this.data.salary = salary;
 
         if (salaryDom && salaryDom[0] && salaryDom[0].children[0]) {
             salary = VacancyParser.getSalary(salaryDom[0].children[0].data);
+            this.data.salary = salary;
         }
 
-        this.data.salary = salary;
+        console.log(this.data.salary);
+
     }
 
     parseLocation() {
@@ -192,7 +201,7 @@ class VacancyParser {
                 this.data.fullDay = true;
             } else {
 
-       this.data.fullDay = false;
+                this.data.fullDay = false;
             }
 
         }

@@ -7,8 +7,8 @@ vacanciesSchema = mongoose.Schema({
     date: Number,
     views: Number,
     salary: {
-        salaryDown: Number,
-        salaryUp: Number,
+        salaryDown: String,
+        salaryUp: String,
         currency: String
     },
     locationHref: String,
