@@ -6,7 +6,7 @@ const path = require('path');
 let logger = winston.createLogger({
     transports: [
         new winston.transports.Console(),
-        new winston.transports.File({filename: path.join(__dirname, 'errorsLogs/error.log')})
+        new winston.transports.File({filename: path.join(__dirname, '/errorsLogs/error.log')})
     ],
 
     format: winston.format.combine(
@@ -14,7 +14,6 @@ let logger = winston.createLogger({
         winston.format.timestamp({
             format: 'YYYY-MM-DD HH:mm:ss'
         }),
-        winston.format.simple(),
         winston.format.printf(info => {
             return `${info.timestamp} ${info.level}: ${info.message}`;
         })
@@ -24,6 +23,7 @@ let logger = winston.createLogger({
 class ErrorHandler {
 
     logError(number, innerText, defaultText) {
+        console.log(__dirname);
         let errorText = {};
         errorText.message = defaultText.message;
         errorText.name = defaultText.name;

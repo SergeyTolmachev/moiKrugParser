@@ -160,7 +160,7 @@ class VacancyParser {
         const footerDom = select(handler.dom, '.footer_meta');
         const remoteDom = select(footerDom, '.ready_to_remote');
 
-        if (remoteDom[0].children[0]) {
+        if (remoteDom[0] && remoteDom[0].children[0]) {
             if (remoteDom[0].children[0].data.indexOf('Можно удаленно') != -1) {
                 this.data.remote = true;
             } else {
