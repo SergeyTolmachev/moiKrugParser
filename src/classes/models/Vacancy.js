@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const vacanciesSchema = require('../../../schemas/vacanciesSchema');
+const vacanciesSchema = require('../../schemas/vacanciesSchema');
 
 
 
