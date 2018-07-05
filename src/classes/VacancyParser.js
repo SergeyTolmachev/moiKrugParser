@@ -1,13 +1,15 @@
 const htmlparser = require("htmlparser");
 const select = require('soupselect').select;
+const logger = require('./ErrorHandler');
+
 
 
 let handler = new htmlparser.DefaultHandler(function (error, dom) {
     if (error) {
-        console.log('Возникла ошибка', error)
+        logger.logError('3', 'Возникла ошибка в парсинге', error);
     }
     else {
-        console.log('Парсинг прошел успешно')
+        //console.log('Парсинг прошел успешно')
     }
 });
 
@@ -228,7 +230,8 @@ class VacancyParser {
             this.parseDescripton();
             this.checkRightParsing();
             this.parseRemote();
-        } catch (e) {
+        } catch (error) {
+            logger.logError('4', 'Ошибка в обработке данных парсинга', error);
             this.data.falseOfParsing = true;
         }
     }
