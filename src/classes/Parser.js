@@ -5,8 +5,6 @@ const httpsRequest = require('./actions/HttpsRequest');
 const allItemsSaver = require('./actions/AllItemsSaver');
 
 
-let itemsToSave = []; //массив объектов, которые сохраняются в базу
-
 
 async function parseVacancy(urls, callback) {
     let url = urls.shift();
@@ -16,7 +14,7 @@ async function parseVacancy(urls, callback) {
         //console.log('DO: ' + url);
         parsedPage.lastId = url.replace('/vacancies/', '');
         //console.log('POSLE: '+ parsedPage.lastId);
-        itemsToSave.push(parsedPage);
+        allItemsSaver.itemsToSave.push(parsedPage);
         console.log('вакансия ' + parsedPage.lastId);
     }
     if (urls.length === 0) {
@@ -30,8 +28,8 @@ async function parseVacancy(urls, callback) {
 async function parsePages(page) {
     console.log('загружаем новус страницу ' + page);
     let data = await httpsRequest.getRequest('https://moikrug.ru/vacancies?page=' + page);
-    if (itemsToSave.length >= 20) {
-        allItemsSaver.saveItems(itemsToSave);
+    if (allItemsSaver.itemsToSave.length >= 20) {
+        allItemsSaver.saveItems(allItemsSaver.itemsToSave);
         console.log('-------------------------------');
         console.log('------сохраняем все в базу------');
         console.log('-------------------------------');
@@ -41,7 +39,7 @@ async function parsePages(page) {
 
     if (!items.length) {
         console.log('нет вакансий на странице');
-        allItemsSaver.saveItems(itemsToSave);
+        allItemsSaver.saveItems(allItemsSaver.itemsToSave);
         return false;
     }
 
@@ -50,8 +48,5 @@ async function parsePages(page) {
     });
 
 }
-
-
-
 
 parsePages(1);

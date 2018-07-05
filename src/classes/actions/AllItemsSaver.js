@@ -3,6 +3,11 @@ const Saver = require('../models/Vacancy');
 
 
 class AllItemsSaver {
+
+    constructor() {
+        this.itemsToSave =[];
+    }
+
     saveItems(items) {
         db.db.dropCollection('vacanciesmodels', function (err, result) {
         });
