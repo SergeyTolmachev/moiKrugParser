@@ -1,8 +1,8 @@
-const https = require('https');
 const db = require('../config/mongodbConnect');
 const VacancyParser = require('./VacancyParser');
 const Saver = require('./models/Vacancy');
-const httpsRequest = require('./actions/httpsRequest');
+const httpsRequest = require('./actions/HttpsRequest');
+const allItemsSaver = require('./actions/AllItemsSaver');
 
 
 let itemsToSave = []; //массив объектов, которые сохраняются в базу
@@ -31,7 +31,7 @@ async function parsePages(page) {
     console.log('загружаем новус страницу ' + page);
     let data = await httpsRequest.getRequest('https://moikrug.ru/vacancies?page=' + page);
     if (itemsToSave.length >= 20) {
-        saveItems(itemsToSave);
+        allItemsSaver.saveItems(itemsToSave);
         console.log('-------------------------------');
         console.log('------сохраняем все в базу------');
         console.log('-------------------------------');
@@ -41,7 +41,7 @@ async function parsePages(page) {
 
     if (!items.length) {
         console.log('нет вакансий на странице');
-        saveItems(itemsToSave);
+        allItemsSaver.saveItems(itemsToSave);
         return false;
     }
 
@@ -51,19 +51,7 @@ async function parsePages(page) {
 
 }
 
-function saveItems(items) {
-    db.db.dropCollection('vacanciesmodels', function (err, result) {
-    });
-    Promise.all(items.map(item => Saver.save(item)))
-        .then(function () {
-            console.log('all documents succesfully saved!');
-            db.db.close();
-        })
-        .catch(() => {
-            console.log('error with saving');
-        });
 
-}
 
 
 parsePages(1);
