@@ -30,43 +30,12 @@ class VacancyParser {
 
     static dateConvert(date) {
         let dateThings = date.split(' ');
+        let monthsArray=['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 
-        if (dateThings[1] == 'января') {
+        if (monthsArray.indexOf(dateThings[1]) === -1) {
             dateThings[1] = '01'
-        }
-
-        if (dateThings[1] == 'февраля') {
-            dateThings[1] = '02'
-        }
-        if (dateThings[1] == 'марта') {
-            dateThings[1] = '03'
-        }
-        if (dateThings[1] == 'апреля') {
-            dateThings[1] = '04'
-        }
-        if (dateThings[1] == 'мая') {
-            dateThings[1] = '05'
-        }
-        if (dateThings[1] == 'июня') {
-            dateThings[1] = '06'
-        }
-        if (dateThings[1] == 'июля') {
-            dateThings[1] = '07'
-        }
-        if (dateThings[1] == 'августа') {
-            dateThings[1] = '08'
-        }
-        if (dateThings[1] == 'сентября') {
-            dateThings[1] = '09'
-        }
-        if (dateThings[1] == 'октября') {
-            dateThings[1] = '10'
-        }
-        if (dateThings[1] == 'ноября') {
-            dateThings[1] = '11'
-        }
-        if (dateThings[1] == 'декабря') {
-            dateThings[1] = '12'
+        } else {
+            dateThings[1] = monthsArray.indexOf(dateThings[1])+1;
         }
         return Date.parse(dateThings[1] + '/' + dateThings[0] + '/' + dateThings[2]);
     }

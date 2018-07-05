@@ -5,7 +5,7 @@
   "main": "parser.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/classes/parser"
+    "start": "node src/app"
   },
   "repository": {
     "type": "git",
