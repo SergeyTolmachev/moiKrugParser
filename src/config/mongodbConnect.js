@@ -3,11 +3,11 @@ const mongodbUrl = require('./mongodbUrl');
 
 mongoose.connect(mongodbUrl.mongodbUrl);
 
-let db = mongoose.connection;
+const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-    console.log('мы успешно подключились');
+db.once('open', () => {
+  console.log('мы успешно подключились');
 });
 
 module.exports.db = db;
