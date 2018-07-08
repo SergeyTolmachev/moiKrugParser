@@ -4,7 +4,7 @@ const saver = require('./models/Vacancy');
 const logger = require('./ErrorHandler');
 
 
-class Parser {
+class App {
   async parseVacancy(url) {
     try {
       const data = await httpsRequest.getRequest(`https://moikrug.ru${url}`);
@@ -52,6 +52,6 @@ class Parser {
   }
 }
 
-const parser = new Parser();
+const parser = new App();
 
 parser.parsePages(1);
