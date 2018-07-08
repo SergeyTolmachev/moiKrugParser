@@ -64,4 +64,4 @@ config/mongodbUrl.js
 
 .idea/
 
-.DS_store
+.DS_Store
