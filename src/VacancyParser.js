@@ -1,13 +1,14 @@
 const htmlparser = require('htmlparser');
 const select = require('soupselect').select;
-const logger = require('./ErrorHandler');
+// const logger = require('./ErrorHandler');
+const logger = require('./Logger');
 
 
 const handler = new htmlparser.DefaultHandler(((error, dom) => {
   if (error) {
-    logger.logError('3', 'Возникла ошибка в парсинге', error);
+    logger.error('Возникла ошибка в парсинге страницы', error);
   } else {
-    // console.log('Парсинг прошел успешно')
+    logger.info('Парсинг страницы прошел успешно');
   }
 }));
 
@@ -132,8 +133,6 @@ class VacancyParser {
       salary = VacancyParser.getSalary(salaryDom[0].children[0].data);
       this.data.salary = salary;
     }
-
-    console.log(this.data.salary);
   }
 
   parseLocation() {
@@ -207,7 +206,6 @@ class VacancyParser {
 
   initParse() {
     try {
-      this.data.falseOfParsing = false;
       this.parseTitle();
       this.parseSkills();
       this.parseDate();
@@ -219,8 +217,14 @@ class VacancyParser {
       this.checkRightParsing();
       this.parseRemote();
     } catch (error) {
-      logger.logError('4', 'Ошибка в обработке данных парсинга', error);
-      this.data.falseOfParsing = true;
+      try {
+        const errorDom = select(handler.dom, 'h1');
+        if (errorDom[0].children[0].data === 'Ошибка 404') {
+          logger.info('На странице вакансии ошибка 404');
+        }
+      } catch (error) {
+        logger.error('Ошибка в парсинге вакансии\n', error);
+      }
     }
   }
 }

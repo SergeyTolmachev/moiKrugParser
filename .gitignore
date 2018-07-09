@@ -65,3 +65,7 @@ config/mongodbUrl.js
 .idea/
 
 .DS_Store
+
+# сохраняем исключения, чтобы загрузить пустую папку
+
+!.logs/.gitkeep

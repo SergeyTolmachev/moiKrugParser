@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const vacanciesSchema = require('../schemas/vacanciesSchema');
 const db = require('../config/mongodbConnect');
-const logger = require('../ErrorHandler');
+const logger = require('../Logger');
+
 
 
 class Vacancy {
@@ -16,9 +17,9 @@ class Vacancy {
       vacancy.save((err, result) => {
         if (err) {
           reject();
-          return console.log('Ошибка записи данных!!!', err);
+          return logger.error('Ошибка записи данных!!!', err);
         }
-        console.log('документ успешно сохранен ');
+        logger.info('документ успешно сохранен ');
         resolve();
       });
     });
@@ -33,13 +34,13 @@ class Vacancy {
         try {
           await this.save(items[i]);
         } catch (error) {
-          logger.logError('6', `Ошибка в сохранении конкретного файла ${i}`, error);
+          logger.error(`Ошибка в сохранении конкретного файла ${i}`, error);
         }
       }
-      console.log('Все документы успешно сохранены, закрываем соединение с базой');
+      logger.info('Все документы успешно сохранены, закрываем соединение с базой');
       db.db.close();
     } catch (e) {
-      logger.logError('7', 'Общая ошибка при сохранении файлов', error);
+      logger.error('Общая ошибка при сохранении файлов', error);
     }
   }
 }
