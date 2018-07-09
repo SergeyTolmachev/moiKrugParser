@@ -68,4 +68,5 @@ config/mongodbUrl.js
 
 # сохраняем исключения, чтобы загрузить пустую папку
 
+logs/*
 !.logs/.gitkeep
