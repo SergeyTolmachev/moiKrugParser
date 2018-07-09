@@ -60,11 +60,11 @@ typings/
 # next.js build output
 .next
 
-config/mongodbUrl.js
+src/config/mongodbUrl.js
 
 .idea/
 
 .DS_Store
 
-logs/**
+src/logs/**
 
