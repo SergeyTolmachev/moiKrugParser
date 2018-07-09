@@ -66,5 +66,4 @@ src/config/mongodbUrl.js
 
 .DS_Store
 
-src/logs/**
 
