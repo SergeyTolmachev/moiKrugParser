@@ -2,6 +2,7 @@ const VacancyParser = require('./VacancyParser');
 const httpsRequest = require('./actions/HttpsRequest');
 const saver = require('./actions/VacancySaver');
 const logger = require('./Logger');
+const cron = require('cron');
 
 
 class App {
@@ -50,6 +51,16 @@ class App {
   }
 }
 
+
 const parser = new App();
 
-parser.parsePages(1);
+
+const repeatParsing = new cron.CronJob({
+    cronTime: '00 00,06,12,18 * * *',
+    onTick: () => parser.parsePages(1),
+    start: false,
+});
+
+//repeatParsing.start();
+
+
