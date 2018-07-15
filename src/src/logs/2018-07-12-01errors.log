@@ -1,0 +1,12 @@
+2018-07-12 01:13:31 - error: Unable to connect to the database: SequelizeConnectionError: too many connections for role "svfzwqcg"
+    at connection.connect.err (/Users/macbook/Desktop/moiKrugParser/moiKrugParser/node_modules/sequelize/lib/dialects/postgres/connection-manager.js:128:24)
+    at Connection.connectingErrorHandler (/Users/macbook/Desktop/moiKrugParser/moiKrugParser/node_modules/pg/lib/client.js:123:14)
+    at emitOne (events.js:116:13)
+    at Connection.emit (events.js:211:7)
+    at Socket.<anonymous> (/Users/macbook/Desktop/moiKrugParser/moiKrugParser/node_modules/pg/lib/connection.js:123:12)
+    at emitOne (events.js:116:13)
+    at Socket.emit (events.js:211:7)
+    at addChunk (_stream_readable.js:263:12)
+    at readableAddChunk (_stream_readable.js:250:11)
+    at Socket.Readable.push (_stream_readable.js:208:10)
+    at TCP.onread (net.js:597:20)

@@ -1,7 +1,6 @@
-// const log = require('winston');
 const VacancyParser = require('./VacancyParser');
 const httpsRequest = require('./actions/HttpsRequest');
-const saver = require('./models/Vacancy');
+const saver = require('./actions/VacancySaver');
 const logger = require('./Logger');
 
 
@@ -25,7 +24,7 @@ class App {
 
   async parsePages(page) {
     try {
-      logger.info(`загружаем новус страницу ${page}`);
+      logger.info(`загружаем новую страницу ${page}`);
       const data = await httpsRequest.getRequest(`https://moikrug.ru/vacancies?page=${page}`);
       // if (saver.itemsToSave.length >= 15) {
       //   saver.saveItems(saver.itemsToSave);

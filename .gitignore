@@ -57,7 +57,7 @@ typings/
 # next.js build output
 .next
 
-src/config/mongodbUrl.js
+src/config/psqlUrl.js
 
 .idea/
 
