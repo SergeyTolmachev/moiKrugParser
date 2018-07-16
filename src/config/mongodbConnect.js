@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const mongodbUrl = require('./mongodbUrl');
-const log = require('../Logger');
+const log = require('../services/Logger');
 
 
 mongoose.connect(mongodbUrl.mongodbUrl);

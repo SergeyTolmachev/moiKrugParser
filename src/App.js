@@ -1,18 +1,22 @@
 // const log = require('winston');
-const VacancyParser = require('./VacancyParser');
-const httpsRequest = require('./actions/HttpsRequest');
-const saver = require('./models/Vacancy');
-const logger = require('./Logger');
 const cron = require('cron');
+const VacancyParser = require('./services/VacancyParser');
+const httpsRequest = require('./utils/HttpsRequest');
+const saver = require('./models/Vacancy');
+const logger = require('./services/Logger');
 
 class App {
+  constructor() {
+    this.itemsToSave = [];
+  }
+
   async parseVacancy(url) {
     try {
       const data = await httpsRequest.getRequest(`https://moikrug.ru${url}`);
       try {
         const parsedPage = new VacancyParser(data).getData();
         parsedPage.lastId = url.replace('/vacancies/', '');
-        saver.itemsToSave.push(parsedPage);
+        this.itemsToSave.push(parsedPage);
         logger.info(`вакансия ${parsedPage.lastId}`);
       } catch (error) {
         logger.error('Ошибка в парсинге вакансии\n', error);
@@ -27,8 +31,8 @@ class App {
     try {
       logger.info(`загружаем новус страницу ${page}`);
       const data = await httpsRequest.getRequest(`https://moikrug.ru/vacancies?page=${page}`);
-      // if (saver.itemsToSave.length >= 15) {
-      //   saver.saveItems(saver.itemsToSave);
+      // if (this.itemsToSave.length >= 15) {
+      //   saver.saveItems(this.itemsToSave);
       //   logger.info('-------------------------------');
       //   logger.info('------сохраняем все в базу------');
       //   logger.info('-------------------------------');
@@ -38,7 +42,7 @@ class App {
 
       if (!items.length) {
         logger.info('нет вакансий на странице');
-        saver.saveItems(saver.itemsToSave);
+        saver.saveItems(this.itemsToSave);
         return false;
       }
       for (let i = 0; i < items.length; i++) {
@@ -53,8 +57,4 @@ class App {
 
 const parser = new App();
 
-const repeatParsing = new cron.CronJob({
-    cronTime: '00 00,06,12,18 * * *',
-    onTick: () => parser.parsePages(1),
-    start: false,
-});
+parser.parsePages(1);

@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 const vacanciesSchema = require('../schemas/vacanciesSchema');
 const db = require('../config/mongodbConnect');
-const logger = require('../Logger');
+const logger = require('../services/Logger');
 
 
 
 class Vacancy {
   constructor() {
     this.model = mongoose.model('vacanciesModel', vacanciesSchema.vacanciesSchema);
-    this.itemsToSave = [];
   }
 
   async save(item) {
